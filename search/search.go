@@ -72,9 +72,7 @@ func (s *state) findShape(p point) *shape {
 			}
 		}
 	}
-	if result != nil && len(result.points) == 0 {
-		return nil
-	}
+
 	return result
 }
 
@@ -157,7 +155,6 @@ func (p point) match(v point) bool {
 	return true
 }
 
-
 func (p point) transform(rows, cols int) point {
 	x := wrap(p.x, cols)
 	y := wrap(p.y, rows)
@@ -237,7 +234,7 @@ func (s shape) print(w io.Writer, rows, cols int) {
 		}
 		rowPoints.print(w)
 	}
-	fmt.Fprintln(w, strings.Repeat("-", newCols + len(leftPadding)))
+	fmt.Fprintln(w, strings.Repeat("-", newCols+len(leftPadding)))
 }
 
 func getDirection(b, e point) direction {

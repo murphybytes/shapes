@@ -122,7 +122,7 @@ func readRow(rdr io.Reader, cols int) ([]int, error) {
 	return row, nil
 }
 
-func getRow(r io.Reader, w io.Writer, cols int)([]int,error){
+func getRow(r io.Reader, w io.Writer, cols int) ([]int, error) {
 	for {
 		var entries []int
 		var err error
@@ -146,7 +146,7 @@ func getRow(r io.Reader, w io.Writer, cols int)([]int,error){
 		}
 
 		_, _ = fmt.Fprintf(w, "You entered %v\n", entries)
-		choice, err := prompt(r,w, "Continue (C) Retry (R) Cancel (X)? " )
+		choice, err := prompt(r, w, "Continue (C) Retry (R) Cancel (X)? ")
 		if err != nil {
 			return nil, err
 		}
@@ -158,4 +158,3 @@ func getRow(r io.Reader, w io.Writer, cols int)([]int,error){
 		}
 	}
 }
-

@@ -130,9 +130,6 @@ func TestReadRow(t *testing.T) {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			rdr := bytes.NewBufferString(tc.input)
 			got, err := readRow(rdr, tc.cols)
-			if err != nil {
-				t.Log("got error", err)
-			}
 			if tc.err && err == nil {
 				t.Fatalf("expected error")
 			}
@@ -190,8 +187,8 @@ func TestGetRow(t *testing.T) {
 				"(C) Retry (R) Cancel (X)? Enter a 4 element row containing space separated ones or zeros\nYou entered " +
 				"[1 1 1 1]\nContinue (C) Retry (R) Cancel (X)? ",
 			wantRow: nil,
-			cols: 4,
-			err: errorUserTerminated,
+			cols:    4,
+			err:     errorUserTerminated,
 		},
 	}
 	for i, tc := range tt {
@@ -213,23 +210,22 @@ func TestGetRow(t *testing.T) {
 
 func TestReadGrid(t *testing.T) {
 	want := [][]int{
-		{1,0,1,0,1,0},
-		{0,1,0,1,0,1},
-		{1,1,1,1,1,1},
-		{1,1,1,0,0,0},
+		{1, 0, 1, 0, 1, 0},
+		{0, 1, 0, 1, 0, 1},
+		{1, 1, 1, 1, 1, 1},
+		{1, 1, 1, 0, 0, 0},
 	}
 	input := "4 6\nC\n1 0 1 0 1 0\nC\n0 1 0 1 0 1\nC\n1 1 1 1 1 1\nC\n1 1 1 0 0 0\nC\n"
 	var w bytes.Buffer
 	got, err := readGrid(bytes.NewBufferString(input), &w)
 	if err != nil {
-		t.Fatal("unexpected", err )
+		t.Fatal("unexpected", err)
 	}
 
 	if len(got) != len(want) {
 		t.Fatalf("wanted rows %d got rows %d", len(want), len(got))
 	}
 	for i := 0; i < len(want); i++ {
-		t.Logf("row %d", i)
 		assertEqual(t, got[i], want[i])
 	}
 }
@@ -246,5 +242,3 @@ func assertEqual(t *testing.T, got, want []int) {
 		return
 	}
 }
-
-
